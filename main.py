@@ -1,8 +1,11 @@
+import tkinter
 from tkinter import *
 
 
 class Application:
     def __init__(self, master=None):
+        root.title("Sistema de Cadastro")
+        root.geometry("300x300")
         self.fontePadrao = ("Arial", "10")
         self.primeiroConteiner = Frame(master)
         self.primeiroConteiner["pady"] = "10"
@@ -46,14 +49,25 @@ class Application:
 
         self.sextoContainer = Frame(master)
         self.sextoContainer["padx"] = "10"
-        self.sextoContainer.pack()
+        self.sextoContainer.pack(side=LEFT)
 
         self.autenticar = Button(self.sextoContainer)
         self.autenticar["text"] = "Entrar"
         self.autenticar["font"] = self.fontePadrao
         self.autenticar["width"] = 12
         self.autenticar["command"] = self.autenticar_senha
-        self.autenticar.pack()
+        self.autenticar.pack(side=LEFT)
+
+        self.setimoContainer = Frame(master)
+        self.setimoContainer["padx"] = "10"
+        self.setimoContainer.pack(side=RIGHT)
+
+        self.cadastro = Button(self.setimoContainer)
+        self.cadastro["text"] = "Cadastrar"
+        self.cadastro["font"] = self.fontePadrao
+        self.cadastro["width"] = 12
+        self.cadastro["command"] = self.cadastrar
+        self.cadastro.pack(side=RIGHT)
 
         self.mensagem = Label(self.primeiroConteiner, text="", font=self.fontePadrao)
         self.mensagem.pack()
@@ -65,6 +79,30 @@ class Application:
             self.mensagem["text"] = "Autenticado"
         else:
             self.mensagem["text"] = "Tente Novamente"
+
+    def cadastrar(self):
+        nova_janela = tkinter.Toplevel(root)
+        nova_janela.title("Cadastro")
+        nova_janela.geometry("300x300")
+        titulo_cadastro = tkinter.Label(nova_janela, text="Cadastro", font=self.fontePadrao, pady="10")
+        titulo_nome_cadastro = tkinter.Label(nova_janela, text="Nome Completo: ")
+        inserir_nome_cadastro = tkinter.Entry(nova_janela)
+        email_cadastro = tkinter.Label(nova_janela, text="Informe o Email: ")
+        inserir_email_cadastro = tkinter.Entry(nova_janela)
+        nome_usuario = tkinter.Label(nova_janela, text="Usuário")
+        inserir_nome_usuario = tkinter.Entry(nova_janela)
+        senha_cadastro = tkinter.Label(nova_janela, text="Senha")
+        inserir_senha_cadastro = tkinter.Entry(nova_janela)
+
+        titulo_cadastro.pack()
+        titulo_nome_cadastro.pack()
+        inserir_nome_cadastro.pack()
+        email_cadastro.pack()
+        inserir_email_cadastro.pack()
+        nome_usuario.pack()
+        inserir_nome_usuario.pack()
+        senha_cadastro.pack()
+        inserir_senha_cadastro.pack()
 
 
 root = Tk()
