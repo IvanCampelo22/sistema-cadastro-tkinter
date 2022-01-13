@@ -93,6 +93,7 @@ class Application:
         inserir_nome_usuario = tkinter.Entry(nova_janela)
         senha_cadastro = tkinter.Label(nova_janela, text="Senha")
         inserir_senha_cadastro = tkinter.Entry(nova_janela)
+        confirmar = Button(nova_janela, text="Confirmar", command=nova_janela.destroy, padx="10")
 
         titulo_cadastro.pack()
         titulo_nome_cadastro.pack()
@@ -103,6 +104,7 @@ class Application:
         inserir_nome_usuario.pack()
         senha_cadastro.pack()
         inserir_senha_cadastro.pack()
+        confirmar.pack()
 
 
 root = Tk()
