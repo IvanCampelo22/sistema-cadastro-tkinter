@@ -2,6 +2,7 @@ import tkinter
 from tkinter import *
 
 
+<<<<<<< HEAD
 import servico_cadastro, Banco
 from alunos_cadastro import Alunos
 from servico_cadastro import *
@@ -10,13 +11,22 @@ from servico_cadastro import *
 class Application:
     def __init__(self, master=None):
         root.title("Escola Municipal")
+=======
+class Application:
+    def __init__(self, master=None):
+        root.title("Sistema de Cadastro")
+>>>>>>> 02265cc88bb9a3c4ea15bd4519510a4b751ca969
         root.geometry("300x300")
         self.fontePadrao = ("Arial", "10")
         self.primeiroConteiner = Frame(master)
         self.primeiroConteiner["pady"] = "10"
         self.primeiroConteiner.pack()
 
+<<<<<<< HEAD
         self.titulo = Label(self.primeiroConteiner, text="Entre com seu login e senha", font=self.fontePadrao)
+=======
+        self.titulo = Label(self.primeiroConteiner, text="Sistema de Cadastro", font=self.fontePadrao)
+>>>>>>> 02265cc88bb9a3c4ea15bd4519510a4b751ca969
         self.titulo.pack(side=TOP)
 
         self.segundoContainer = Frame(master)
@@ -82,6 +92,7 @@ class Application:
         senha = self.verificar.get()
         if usuario == "ivan22" and senha == "A1b2c3d4.":
             self.mensagem["text"] = "Autenticado"
+<<<<<<< HEAD
             sistema = tkinter.Toplevel(root)
             sistema.title("Opções de Cadastro")
             sistema.geometry("300x300")
@@ -95,6 +106,11 @@ class Application:
     def CadastrarNomes(self):
         pass
 
+=======
+        else:
+            self.mensagem["text"] = "Tente Novamente"
+
+>>>>>>> 02265cc88bb9a3c4ea15bd4519510a4b751ca969
     def cadastrar(self):
         nova_janela = tkinter.Toplevel(root)
         nova_janela.title("Cadastro")
@@ -108,8 +124,12 @@ class Application:
         inserir_nome_usuario = tkinter.Entry(nova_janela)
         senha_cadastro = tkinter.Label(nova_janela, text="Senha")
         inserir_senha_cadastro = tkinter.Entry(nova_janela)
+<<<<<<< HEAD
         confirmar = Button(nova_janela, text="Confirmar", command=servico_cadastro.Usuario.insertUser(Usuario), padx="10")
         
+=======
+        confirmar = Button(nova_janela, text="Confirmar", command=nova_janela.destroy, padx="10")
+>>>>>>> 02265cc88bb9a3c4ea15bd4519510a4b751ca969
 
         titulo_cadastro.pack()
         titulo_nome_cadastro.pack()
