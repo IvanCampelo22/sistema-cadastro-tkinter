@@ -1,74 +1,83 @@
-from alunos_cadastro import Alunos
+from Banco import *
 
+class Usuario(object):
 
-def listar_alunos():
-    lista_alunos = list()
-    try:
-        with open("alunos.txt", "r") as arquivo:
-            lista_alunos_arquivo = arquivo.readlines()
-            for i in lista_alunos_arquivo:
-                dados = (i.split('-'))
-                alunos_arquivo = Alunos(dados[0][:-1], dados[1][1:-1], dados[2][1:-1])
-                lista_alunos.append(alunos_arquivo)
-            return lista_alunos
-    except FileNotFoundError:
-        print("Arquivo não encontrado")
+    def __init__(self, idusuario = 0, nome = "", email = "", usuario = "", senha = ""):
+        self.info = {}
+        self.idusuario = idusuario
+        self.nome = nome 
+        self.email = email 
+        self.usuario = usuario
+        self.senha = senha 
+    
+    def insertUser(self):
 
+        banco = Banco()
+        try: 
 
-def cadastrar_alunos(aluno_novo):
-    try:
-        if buscar_aluno_cpf(aluno_novo.cpf):
-            return False
-        else:
-            with open("contatos.txt", "a") as arquivo:
-                arquivo.write(
-                    f"{aluno_novo.nome} - {aluno_novo.cpf} - {aluno_novo.nome_mae} - {aluno_novo.telefone} \n")
-                return True
-    except FileNotFoundError:
-        print("Arquivo não encontrado")
+            c = banco.conexao.cursor()
 
+            c.execute("insert into usuarios (nome, email, usuario, senha) values ('" + self.nome + "', '" +  "' , '" + self.email + "' , '" +
+            self.usuario + "','" + self.senha + "' )")
 
-def buscar_aluno(cpf_aluno):
-    try:
-        with open("alunos.txt", "r") as arquivo:
-            lista_alunos = arquivo.readlines()
-            for i, linha in enumerate(lista_alunos):
-                dados = (linha.split('-'))
-                if dados[1][1: -1] == cpf_aluno:
-                    return i
-                else:
-                    return -1
-    except FileNotFoundError:
-        print("Arquivo não encontrado")
+            banco.conexao.commit()
+            c.close()
 
+            return "Usuário cadastrado com sucess!"
+        
+        except:
+            return "Ocorreu um erro na inserção do usuário"
 
-def buscar_aluno_cpf(cpf_aluno):
-    try:
-        linha = buscar_aluno(cpf_aluno)
-        if linha >= 0:
-            with open("alunos.txt") as arquivo:
-                lista_alunos = arquivo.readlines()
-                dados = lista_alunos[linha].split('-')
-                aluno_encontrado = Alunos(dados[0][:-1], dados[1][1:-1], dados[2][1:-1])
-            return aluno_encontrado
-    except FileNotFoundError:
-        print("Arquivo não encontrado")
+    def updateUser(self):
 
+        banco = Banco()
+        try:
+            c = banco.conexao.cursor()
 
-def remover_aluno_cpf(cpf_aluno):
-    try:
-        linha = buscar_aluno(cpf_aluno)
-        if linha >= 0:
-            with open("alunos.txt", "r") as arquivo:
-                lista_alunos = arquivo.readlines()
-                alunos = list()
-                for i, linha_aluno in enumerate(lista_alunos):
-                    if i != linha:
-                        alunos.append((linha_aluno))
-            with open("alunos.txt", "w") as arquivo:
-                arquivo.writelines((alunos))
-            return True
-        else:
-            return False
-    except FileNotFoundError:
-        print("Arquivo não encontrado")
+            c.execute("update usuarios set nome = '" + self.nome + "' , "' email = "' + self.email + "', "' usuario = "' + self.usuario + "', senha = '" + self.senha + "' where idusuario = " + self.idusuario + " ")
+
+            banco.conexao.commit()
+            c.close()
+
+            return "Usuário atualizado com sucesso!"
+        except:
+            return "Ocorreu um erro na alteração do usuário"
+
+    def deleteUser(self):
+
+        banco = Banco()
+        try:
+
+            c = banco.conexao.cursor()
+
+            c.execute("delete from usuarios where idusuario = " + self.idusuario + " ")
+
+            banco.conexao.commit()
+            c.close()
+
+            return "Usuario excluido com sucesso!"
+        except:
+            return "Ocorreu um erro na exlusão do usuário"
+
+    def selectUser(self, idusuario):
+        banco = Banco()
+        try:
+
+            c = banco.conexao.cursor()
+
+            c.execute("select * from usuarios where idusuario = " + idusuario + " ")
+
+            for linha in c:
+                self.idusuario = linha[0]
+                self.nome = linha[1]
+                self.telefone = linha[2]
+                self.email = linha[3]
+                self.usuario = linha[4]
+                self.senha = linha[5]
+
+            c.close()
+
+            return "Busca feita com sucesso!" 
+        except:
+            return "Ocorreu um erro na busca do usuário"
+        

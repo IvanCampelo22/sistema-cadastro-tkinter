@@ -1,5 +1,8 @@
 import tkinter
 from tkinter import *
+
+
+import servico_cadastro, Banco
 from alunos_cadastro import Alunos
 from servico_cadastro import *
 
@@ -82,6 +85,9 @@ class Application:
             sistema = tkinter.Toplevel(root)
             sistema.title("Opções de Cadastro")
             sistema.geometry("300x300")
+            titulo_opçao = tkinter.Label(sistema, text="Escolha uma das Opções", font= self.fontePadrao)
+
+            titulo_opçao.pack()
 
         else:
             self.mensagem["text"] = "Tente Novamente"
@@ -102,7 +108,8 @@ class Application:
         inserir_nome_usuario = tkinter.Entry(nova_janela)
         senha_cadastro = tkinter.Label(nova_janela, text="Senha")
         inserir_senha_cadastro = tkinter.Entry(nova_janela)
-        confirmar = Button(nova_janela, text="Confirmar", command=nova_janela.destroy, padx="10")
+        confirmar = Button(nova_janela, text="Confirmar", command=servico_cadastro.Usuario.insertUser(Usuario), padx="10")
+        
 
         titulo_cadastro.pack()
         titulo_nome_cadastro.pack()
@@ -114,8 +121,6 @@ class Application:
         senha_cadastro.pack()
         inserir_senha_cadastro.pack()
         confirmar.pack()
-
-
 
 
 root = Tk()
