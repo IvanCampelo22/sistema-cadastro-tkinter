@@ -17,8 +17,8 @@ class Usuario(object):
 
             c = banco.conexao.cursor()
 
-            c.execute("insert into usuarios (nome, email, usuario, senha) values ('" + self.nome + "', '" +  "' , '" + self.email + "' , '" +
-            self.usuario + "','" + self.senha + "' )")
+            c.execute("insert into usuarios (nome, email, usuario, senha) values ('" + self.nome + "' , '" + self.email + "' , '"
+            + self.usuario + "','" + self.senha + "' )")
 
             banco.conexao.commit()
             c.close()

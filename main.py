@@ -1,3 +1,4 @@
+from doctest import master
 import tkinter
 from tkinter import *
 
@@ -16,7 +17,6 @@ class Application:
         self.primeiroConteiner["pady"] = "10"
         self.primeiroConteiner.pack()
 
-
         self.titulo = Label(self.primeiroConteiner, text="Entre com seu login e senha", font=self.fontePadrao)
         self.titulo = Label(self.primeiroConteiner, text="Sistema de Cadastro", font=self.fontePadrao)
         self.titulo.pack(side=TOP)
@@ -32,27 +32,27 @@ class Application:
         self.terceiroContainer["padx"] = "10"
         self.terceiroContainer.pack()
 
-        self.nome = Entry(self.terceiroContainer)
-        self.nome["width"] = 30
-        self.nome["font"] = self.fontePadrao
-        self.nome.pack(side=LEFT)
+        self.txtlogin = Entry(self.terceiroContainer)
+        self.txtlogin["width"] = 30
+        self.txtlogin["font"] = self.fontePadrao
+        self.txtlogin.pack(side=LEFT)
 
         self.quartoContainer = Frame(master)
         self.quartoContainer["padx"] = "10"
         self.quartoContainer.pack()
 
-        self.senha = Label(self.quartoContainer, text="Senha: ", font=self.fontePadrao)
-        self.senha.pack(side=LEFT)
+        self.txtsenha = Label(self.quartoContainer, text="Senha", font=self.fontePadrao) 
+        self.txtsenha.pack(side=LEFT)
 
         self.quintoContainer = Frame(master)
         self.quintoContainer["padx"] = "10"
         self.quintoContainer.pack()
 
-        self.verificar = Entry(self.quintoContainer)
-        self.verificar["width"] = 30
-        self.verificar["font"] = self.fontePadrao
-        self.verificar["show"] = "*"
-        self.verificar.pack(side=LEFT)
+        self.txtverificar = Entry(self.quintoContainer)
+        self.txtverificar["width"] = 30
+        self.txtverificar["font"] = self.fontePadrao
+        self.txtverificar["show"] = "*"
+        self.txtverificar.pack(side=LEFT)
 
         self.sextoContainer = Frame(master)
         self.sextoContainer["padx"] = "10"
@@ -62,7 +62,7 @@ class Application:
         self.autenticar["text"] = "Entrar"
         self.autenticar["font"] = self.fontePadrao
         self.autenticar["width"] = 12
-        self.autenticar["command"] = self.autenticar_senha
+        self.autenticar["command"] = self.InserirUsuario
         self.autenticar.pack(side=LEFT)
 
         self.setimoContainer = Frame(master)
@@ -78,6 +78,14 @@ class Application:
 
         self.mensagem = Label(self.primeiroConteiner, text="", font=self.fontePadrao)
         self.mensagem.pack()
+        
+        self.container9 = Frame(master)
+        self.container9["pady"] = 15
+        self.container9.pack()
+        
+        self.lblmsg = Label(self.container9, text="")
+        self.lblmsg["font"] = ("Verdana", "9", "italic")
+        self.lblmsg.pack()
 
     def autenticar_senha(self):
         usuario = self.nome.get()
@@ -94,47 +102,58 @@ class Application:
         else:
             self.mensagem["text"] = "Tente Novamente"
             
-    
-    def InserirUsuario(self):
-        user = Usuario()
-
-        user.nome = self.txtnome.get()
-        user.email = self.txtemail.get()
-        user.usuario = self.txtusuario.get()
-        user.senha = self.txtsenha.get()
-        
-        self.lblmsg["text"] = user.insertUser()
-        
-        self.txtnome.delete(0, END)
-        self.txtemail.delete(0, END)
-        self.txtusuario.delete(0, END)
-        self.txtsenha.delete(0, END)
-
+    #criando uma nova janela        
     def cadastrar(self):
+        
         nova_janela = tkinter.Toplevel(root)
         nova_janela.title("Cadastro")
         nova_janela.geometry("300x300")
-        titulo_cadastro = tkinter.Label(nova_janela, text="Cadastro", font=self.fontePadrao, pady="10")
-        titulo_nome_cadastro = tkinter.Label(nova_janela, text="Nome Completo: ")
-        inserir_nome_cadastro = tkinter.Entry(nova_janela)
-        email_cadastro = tkinter.Label(nova_janela, text="Informe o Email: ")
-        inserir_email_cadastro = tkinter.Entry(nova_janela)
-        nome_usuario = tkinter.Label(nova_janela, text="Usuário")
-        inserir_nome_usuario = tkinter.Entry(nova_janela)
-        senha_cadastro = tkinter.Label(nova_janela, text="Senha")
-        inserir_senha_cadastro = tkinter.Entry(nova_janela)
+        
+        self.titulo_cadastro = tkinter.Label(nova_janela, text="Cadastro ", font=self.fontePadrao, pady="10")
+        
+        self.titulo_nome_cadastro = tkinter.Label(nova_janela, text="Nome Completo: ")
+        self.inserir_nome_cadastro = tkinter.Entry(nova_janela) 
+        
+        self.email_cadastro = tkinter.Label(nova_janela, text="Informe o Email: ")
+        self.inserir_email_cadastro = tkinter.Entry(nova_janela)
+        
+        self.nome_usuario = tkinter.Label(nova_janela, text="Usuário")
+        self.inserir_nome_usuario = tkinter.Entry(nova_janela)
+        
+        self.senha_cadastro = tkinter.Label(nova_janela, text="Senha")
+        self.inserir_senha_cadastro = tkinter.Entry(nova_janela)
+        
         confirmar = Button(nova_janela, text="Confirmar", command=self.InserirUsuario, padx="10")
 
-        titulo_cadastro.pack()
-        titulo_nome_cadastro.pack()
-        inserir_nome_cadastro.pack()
-        email_cadastro.pack()
-        inserir_email_cadastro.pack()
-        nome_usuario.pack()
-        inserir_nome_usuario.pack()
-        senha_cadastro.pack()
-        inserir_senha_cadastro.pack()
+        self.titulo_cadastro.pack()
+        self.titulo_nome_cadastro.pack()
+        self.inserir_nome_cadastro.pack()
+        
+        self.email_cadastro.pack()
+        self.inserir_email_cadastro.pack()
+        
+        self.nome_usuario.pack()
+        self.inserir_nome_usuario.pack()
+        
+        self.senha_cadastro.pack()
+        self.inserir_senha_cadastro.pack()
+        
         confirmar.pack()
+        
+    def InserirUsuario(self):
+        user = Usuario()
+
+        user.nome = self.inserir_nome_cadastro.get()
+        user.email = self.inserir_email_cadastro.get()
+        user.usuario = self.inserir_nome_usuario.get()
+        user.senha = self.inserir_senha_cadastro.get()
+        
+        self.lblmsg["text"] = user.insertUser()
+        
+        self.inserir_nome_cadastro.delete(0, END)
+        self.inserir_email_cadastro.delete(0, END)
+        self.inserir_nome_usuario.delete(0, END)
+        self.inserir_senha_cadastro.delete(0, END)
 
 
 

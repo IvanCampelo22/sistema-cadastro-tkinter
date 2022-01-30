@@ -8,10 +8,10 @@ class Banco():
     def createTable(self):
         c = self.conexao.cursor()
 
-        c.execute("""create table if not exists usuarios,
+        c.execute("""create table if not exists usuarios ( 
                     nome text, 
                     email text, 
                     usuario text, 
-                    senha intenger""")
+                    senha text)""")
         self.conexao.commit()
         c.close()
